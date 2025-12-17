@@ -1,4 +1,4 @@
-# Personal Interviewer
+# Personal Learner
 
 An AI-powered daily journaling and progress tracking application that uses Claude AI with MCP (Model Context Protocol) to help users track their learning and work across different domains.
 
