@@ -36,10 +36,6 @@ app.post('/api/domains', createDomain);
 app.get('/api/domains', listDomains);
 
 const PORT = process.env.PORT || 3000;
-const server = new McpServer({
-    name: "Personal-Learner",
-    version: "1.0.0"
-})
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
