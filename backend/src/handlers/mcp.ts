@@ -1,9 +1,15 @@
 import { Request, Response } from 'express';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+import { McpInternalServer } from '../utils/mcpServer';
+import prisma from '../utils/db';
+
+const mcpServerInstance = new McpInternalServer(prisma);
 
 const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined
 })
+
+mcpServerInstance.server.connect(transport);
 
 export const mcpHandler = async (req: Request, res: Response) => {
     console.log("Received MCP Request:", req.body);
