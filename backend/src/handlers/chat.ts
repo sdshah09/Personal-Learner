@@ -1,22 +1,24 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createChatHandler = void 0;
-const createChatHandler = (chatService) => {
-    return async (req, res) => {
+import { Request, Response } from 'express';
+import { ChatService } from '../services/chatService';
+
+export const createChatHandler = (chatService: ChatService) => {
+    return async (req: Request, res: Response) => {
         try {
             const { message, userId } = req.body;
+
             if (!message || !userId) {
                 return res.status(400).json({
                     error: 'message and userId are required'
                 });
             }
+
             const response = await chatService.processUserMessage(userId, message);
-            res.json({
+            
+            res.json({ 
                 response,
                 success: true
             });
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Error in chat handler:', error);
             res.status(500).json({
                 error: error instanceof Error ? error.message : 'Unknown error',
@@ -25,4 +27,4 @@ const createChatHandler = (chatService) => {
         }
     };
 };
-exports.createChatHandler = createChatHandler;
+
