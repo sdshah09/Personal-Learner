@@ -91,6 +91,54 @@ The system uses Model Context Protocol (MCP) to bridge Claude's AI capabilities 
 - PostgreSQL database
 - Anthropic API key
 
+### Environment Variables
+
+You need to set up environment variables for both backend and frontend.
+
+#### Backend Environment Variables
+
+Create a `.env` file in the `backend/` directory:
+
+```bash
+# Required: Anthropic Claude API Key
+# Get your API key from https://console.anthropic.com/
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+
+# Required: PostgreSQL database connection string
+# Format: postgresql://username:password@localhost:5432/database_name
+DATABASE_URL=postgresql://user:password@localhost:5432/personal_learner
+
+# Optional: Server port (defaults to 3000)
+PORT=3000
+
+# Optional: MCP Server URL (defaults to http://localhost:3000/mcp)
+# Only change if you're running MCP server on a different port/URL
+MCP_SERVER_URL=http://localhost:3000/mcp
+```
+
+**Required Variables:**
+- `ANTHROPIC_API_KEY` - Your Anthropic API key for Claude AI. Get it from [Anthropic Console](https://console.anthropic.com/)
+- `DATABASE_URL` - PostgreSQL connection string. Format: `postgresql://username:password@host:port/database_name`
+
+**Optional Variables:**
+- `PORT` - Backend server port (default: 3000)
+- `MCP_SERVER_URL` - MCP server endpoint URL (default: http://localhost:3000/mcp)
+
+#### Frontend Environment Variables
+
+Create a `.env` file in the `frontend/` directory:
+
+```bash
+# Optional: Backend API URL (defaults to http://localhost:3000)
+# Change this if your backend is running on a different port or domain
+VITE_API_URL=http://localhost:3000
+```
+
+**Optional Variables:**
+- `VITE_API_URL` - Backend API base URL (default: http://localhost:3000)
+
+> **Note:** In Vite, environment variables must be prefixed with `VITE_` to be accessible in the frontend code.
+
 ### Installation
 
 1. Clone the repository
@@ -101,7 +149,10 @@ The system uses Model Context Protocol (MCP) to bridge Claude's AI capabilities 
    cd ../frontend && npm install
    ```
 
-3. Set up environment variables (`.env` files)
+3. Set up environment variables:
+   - Create `backend/.env` with the required variables (see above)
+   - Create `frontend/.env` with optional variables if needed (see above)
+
 4. Run database migrations:
    ```bash
    cd backend
