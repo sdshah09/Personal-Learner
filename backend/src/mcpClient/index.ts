@@ -9,7 +9,7 @@ import 'dotenv/config';
 
 export { McpClient };
 
-export async function createMcpClient(retries: number = 5, delay: number = 1000) {
+export async function createMcpClient() {
     const MCP_SERVER_URL = process.env.MCP_SERVER_URL || 'http://localhost:3000/mcp';
     const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 
@@ -31,21 +31,7 @@ export async function createMcpClient(retries: number = 5, delay: number = 1000)
     );
 
     const client = new McpClient(mcp, anthropic, transport);
-    
-    // Retry connection with exponential backoff
-    for (let i = 0; i < retries; i++) {
-        try {
-            await client.connectToServer();
-            return client;
-        } catch (error) {
-            if (i === retries - 1) {
-                throw error;
-            }
-            console.log(`MCP connection attempt ${i + 1} failed, retrying in ${delay}ms...`);
-            await new Promise(resolve => setTimeout(resolve, delay));
-            delay *= 1.5; // Exponential backoff
-        }
-    }
+    await client.connectToServer();
     
     return client;
 }

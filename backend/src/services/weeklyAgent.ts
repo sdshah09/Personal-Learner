@@ -1,4 +1,4 @@
-import * as cron from 'node-cron';
+const cron = require('node-cron');
 import type { PrismaClient } from '@prisma/client';
 import type { Anthropic } from '@anthropic-ai/sdk';
 import { McpClient } from '../mcpClient/mcpClient';
